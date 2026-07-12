@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import SkillSelector from './components/SkillSelector'
@@ -7,13 +6,38 @@ import AnalysisSummary from './components/AnalysisSummary'
 import SavedApplications from './components/SavedApplications'
 import DashboardSection from './components/DashboardSection'
 import type { ApplicationFilter } from './components/FilterTabs'
+import { STATUSES } from './data/statuses'
 import type { ApplicationStatus, JobApplication } from './types/job'
 import { analyzeJobFit } from './utils/analyzeJob'
+import { useLocalStorage } from './hooks/useLocalStorage'
+
+const VALID_FILTERS: ApplicationFilter[] = [
+  'All',
+  ...STATUSES.map((status) => status.value),
+  'HighFit',
+]
+
+function isApplicationFilter(value: unknown): value is ApplicationFilter {
+  return (
+    typeof value === 'string' &&
+    VALID_FILTERS.includes(value as ApplicationFilter)
+  )
+}
 
 function App() {
-  const [selectedSkills, setSelectedSkills] = useState<string[]>([])
-  const [applications, setApplications] = useState<JobApplication[]>([])
-  const [activeFilter, setActiveFilter] = useState<ApplicationFilter>('All')
+  const [selectedSkills, setSelectedSkills] = useLocalStorage<string[]>(
+    'jobfit-selected-skills',
+    [],
+  )
+  const [applications, setApplications] = useLocalStorage<JobApplication[]>(
+    'jobfit-applications',
+    [],
+  )
+  const [activeFilter, setActiveFilter] = useLocalStorage<ApplicationFilter>(
+    'jobfit-active-filter',
+    'All',
+    isApplicationFilter,
+  )
 
   function handleJobSubmit(formData: {
     company: string
