@@ -1,15 +1,17 @@
 import { Inbox } from 'lucide-react'
-import type { JobApplication } from '../types/job'
+import type { ApplicationStatus, JobApplication } from '../types/job'
 import JobApplicationCard from './JobApplicationCard'
 
 interface SavedApplicationsProps {
   applications: JobApplication[]
   onDelete: (id: string) => void
+  onStatusChange: (id: string, status: ApplicationStatus) => void
 }
 
 export default function SavedApplications({
   applications,
   onDelete,
+  onStatusChange,
 }: SavedApplicationsProps) {
   return (
     <section className="mx-auto max-w-6xl px-6 pb-8">
@@ -45,6 +47,7 @@ export default function SavedApplications({
                 key={application.id}
                 application={application}
                 onDelete={onDelete}
+                onStatusChange={onStatusChange}
               />
             ))}
           </div>

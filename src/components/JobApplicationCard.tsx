@@ -1,11 +1,12 @@
 import { MapPin, Briefcase, ExternalLink, Trash2 } from 'lucide-react'
-import type { JobApplication } from '../types/job'
+import type { ApplicationStatus, JobApplication } from '../types/job'
 import { STATUSES } from '../data/statuses'
 import { getFitScoreLabel, getFitScoreClass } from '../utils/formatters'
 
 interface JobApplicationCardProps {
   application: JobApplication
   onDelete: (id: string) => void
+  onStatusChange: (id: string, status: ApplicationStatus) => void
 }
 
 function SkillBadgeGroup({
@@ -45,6 +46,7 @@ function SkillBadgeGroup({
 export default function JobApplicationCard({
   application,
   onDelete,
+  onStatusChange,
 }: JobApplicationCardProps) {
   const statusInfo = STATUSES.find(
     (status) => status.value === application.status,
@@ -84,13 +86,21 @@ export default function JobApplicationCard({
           <Briefcase className="h-4 w-4" strokeWidth={1.75} />
           {application.workType}
         </span>
-        {statusInfo && (
-          <span
-            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${statusInfo.badgeClass}`}
-          >
-            {statusInfo.label}
-          </span>
-        )}
+        <select
+          value={application.status}
+          onChange={(e) =>
+            onStatusChange(application.id, e.target.value as ApplicationStatus)
+          }
+          className={`cursor-pointer rounded-full border-none py-1 pl-2.5 pr-7 text-xs font-semibold outline-none transition-colors focus:ring-2 focus:ring-slate-900/10 ${
+            statusInfo?.badgeClass ?? 'bg-slate-100 text-slate-600'
+          }`}
+        >
+          {STATUSES.map((status) => (
+            <option key={status.value} value={status.value}>
+              {status.label}
+            </option>
+          ))}
+        </select>
       </div>
 
       {application.notes && (
