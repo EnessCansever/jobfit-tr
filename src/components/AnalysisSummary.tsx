@@ -1,0 +1,128 @@
+import { ClipboardList } from 'lucide-react'
+import type { JobApplication } from '../types/job'
+import { getFitScoreLabel, getFitScoreClass } from '../utils/formatters'
+
+interface AnalysisSummaryProps {
+  application: JobApplication | null
+  hasUserSkills?: boolean
+}
+
+function SkillBadgeList({
+  skills,
+  emptyText,
+  badgeClass,
+}: {
+  skills: string[]
+  emptyText: string
+  badgeClass: string
+}) {
+  if (skills.length === 0) {
+    return <p className="text-sm text-slate-400">{emptyText}</p>
+  }
+
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {skills.map((skill) => (
+        <span
+          key={skill}
+          className={`rounded-full px-2.5 py-1 text-xs font-medium ${badgeClass}`}
+        >
+          {skill}
+        </span>
+      ))}
+    </div>
+  )
+}
+
+export default function AnalysisSummary({
+  application,
+  hasUserSkills = true,
+}: AnalysisSummaryProps) {
+  return (
+    <section className="mx-auto max-w-6xl px-6 pb-8">
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-slate-900">
+            Son Analiz Özeti
+          </h2>
+          <p className="mt-1 text-sm text-slate-500">
+            En son eklediğin ilanın beceri uyum sonucu burada görünür.
+          </p>
+        </div>
+
+        {application === null ? (
+          <div className="flex flex-col items-center justify-center gap-3 rounded-2xl border border-dashed border-slate-200 py-12 text-center">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100">
+              <ClipboardList className="h-5 w-5 text-slate-400" strokeWidth={1.75} />
+            </div>
+            <p className="text-sm text-slate-400">
+              Henüz analiz edilmiş ilan yok.
+            </p>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <h3 className="text-base font-semibold text-slate-900">
+                  {application.position}
+                </h3>
+                <p className="text-sm text-slate-500">{application.company}</p>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="text-3xl font-bold text-slate-900">
+                  {application.fitScore}%
+                </span>
+                <span
+                  className={`rounded-full px-3 py-1 text-xs font-semibold ${getFitScoreClass(
+                    application.fitScore,
+                  )}`}
+                >
+                  {getFitScoreLabel(application.fitScore)}
+                </span>
+              </div>
+            </div>
+
+            {!hasUserSkills && (
+              <p className="rounded-xl bg-amber-50 px-4 py-2.5 text-sm text-amber-700">
+                Daha doğru analiz için beceri profilini doldur.
+              </p>
+            )}
+
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+              <div>
+                <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Tespit Edilen Beceriler
+                </h4>
+                <SkillBadgeList
+                  skills={application.requiredSkills}
+                  emptyText="İlan metninde beceri tespit edilemedi."
+                  badgeClass="bg-slate-100 text-slate-600"
+                />
+              </div>
+              <div>
+                <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Eşleşen Beceriler
+                </h4>
+                <SkillBadgeList
+                  skills={application.matchedSkills}
+                  emptyText="Eşleşen beceri yok."
+                  badgeClass="bg-emerald-100 text-emerald-700"
+                />
+              </div>
+              <div>
+                <h4 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Eksik Beceriler
+                </h4>
+                <SkillBadgeList
+                  skills={application.missingSkills}
+                  emptyText="Eksik beceri yok."
+                  badgeClass="bg-red-100 text-red-700"
+                />
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  )
+}
