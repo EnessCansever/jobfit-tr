@@ -19,7 +19,7 @@ export default function FilterTabs({
   onChange,
 }: FilterTabsProps) {
   return (
-    <div className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+    <div className="-mx-1 flex snap-x gap-2 overflow-x-auto scroll-smooth px-1 pb-1">
       {FILTER_OPTIONS.map((option) => {
         const isActive = option.value === activeFilter
         return (
@@ -27,7 +27,7 @@ export default function FilterTabs({
             key={option.value}
             type="button"
             onClick={() => onChange(option.value)}
-            className={`shrink-0 whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${
+            className={`shrink-0 snap-start whitespace-nowrap rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${
               isActive
                 ? 'border-slate-900 bg-slate-900 text-white'
                 : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'

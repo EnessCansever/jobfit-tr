@@ -24,8 +24,8 @@ export default function SavedApplications({
   const hasApplications = totalApplications > 0
 
   return (
-    <section className="mx-auto max-w-6xl px-6 pb-8">
-      <div className="rounded-3xl border border-slate-200 bg-slate-50/60 p-6 sm:p-8">
+    <section className="mx-auto max-w-6xl px-6 pb-16 sm:pb-20">
+      <div className="rounded-3xl border border-slate-200 bg-slate-50/70 p-6 shadow-sm ring-1 ring-black/2 sm:p-8">
         <div className="mb-4">
           <h2 className="text-lg font-semibold text-slate-900">
             Kaydedilen İlanlar
@@ -36,7 +36,7 @@ export default function SavedApplications({
           </p>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-5">
           <FilterTabs activeFilter={activeFilter} onChange={onFilterChange} />
         </div>
 
@@ -70,7 +70,7 @@ export default function SavedApplications({
           </div>
         ) : (
           <>
-            <p className="mb-3 text-sm text-slate-400">
+            <p className="mb-3 text-xs font-medium tracking-wide text-slate-400 uppercase">
               {applications.length} ilan gösteriliyor
             </p>
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">

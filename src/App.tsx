@@ -1,4 +1,5 @@
 import Header from './components/Header'
+import Footer from './components/Footer'
 import Hero from './components/Hero'
 import SkillSelector from './components/SkillSelector'
 import JobForm from './components/JobForm'
@@ -96,10 +97,15 @@ function App() {
   })
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="relative min-h-screen overflow-x-hidden bg-linear-to-b from-indigo-50/70 via-white to-slate-50">
+      <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <div className="absolute -top-24 left-1/2 h-80 w-2xl -translate-x-1/2 rounded-full bg-indigo-200/40 blur-3xl" />
+        <div className="absolute top-152 right-0 h-72 w-96 translate-x-1/3 rounded-full bg-emerald-200/30 blur-3xl" />
+      </div>
       <Header />
-      <main>
+      <main className="relative">
         <Hero />
+        <DashboardSection applications={applications} />
         <SkillSelector
           selectedSkills={selectedSkills}
           onChange={setSelectedSkills}
@@ -117,8 +123,8 @@ function App() {
           activeFilter={activeFilter}
           onFilterChange={setActiveFilter}
         />
-        <DashboardSection applications={applications} />
       </main>
+      <Footer />
     </div>
   )
 }

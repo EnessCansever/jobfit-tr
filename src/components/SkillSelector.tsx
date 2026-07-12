@@ -20,8 +20,8 @@ export default function SkillSelector({
 
   return (
     <section className="mx-auto max-w-6xl px-6 pb-8">
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        <div className="mb-6">
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-black/2 sm:p-8">
+        <div className="mb-5">
           <h2 className="text-lg font-semibold text-slate-900">
             Beceri Profilin
           </h2>
@@ -40,9 +40,9 @@ export default function SkillSelector({
                 type="button"
                 onClick={() => toggleSkill(skill)}
                 aria-pressed={isSelected}
-                className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${
+                className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-all ${
                   isSelected
-                    ? 'border-slate-900 bg-slate-900 text-white'
+                    ? 'border-indigo-600 bg-indigo-600 text-white shadow-sm shadow-indigo-600/20'
                     : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
                 }`}
               >
@@ -53,7 +53,7 @@ export default function SkillSelector({
           })}
         </div>
 
-        <div className="mt-6 border-t border-slate-100 pt-6">
+        <div className="mt-5 border-t border-slate-100 pt-5">
           <h3 className="text-sm font-semibold text-slate-900">
             Seçilen beceriler
           </h3>
@@ -66,7 +66,7 @@ export default function SkillSelector({
               {selectedSkills.map((skill) => (
                 <span
                   key={skill}
-                  className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600"
+                  className="rounded-full border border-indigo-100 bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700"
                 >
                   {skill}
                 </span>

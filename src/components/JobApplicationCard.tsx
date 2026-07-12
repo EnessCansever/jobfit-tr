@@ -1,7 +1,10 @@
 import { MapPin, Briefcase, ExternalLink, Trash2 } from 'lucide-react'
 import type { ApplicationStatus, JobApplication } from '../types/job'
 import { STATUSES } from '../data/statuses'
-import { getFitScoreLabel, getFitScoreClass } from '../utils/formatters'
+import {
+  getFitScoreLabelWithContext,
+  getFitScoreClass,
+} from '../utils/formatters'
 
 interface JobApplicationCardProps {
   application: JobApplication
@@ -53,7 +56,7 @@ export default function JobApplicationCard({
   )
 
   return (
-    <div className="flex flex-col gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div className="flex flex-col gap-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-black/2 transition-all hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h3 className="text-base font-semibold text-slate-900">
@@ -61,16 +64,17 @@ export default function JobApplicationCard({
           </h3>
           <p className="text-sm text-slate-500">{application.company}</p>
         </div>
-        <div className="flex flex-col items-end gap-1.5">
-          <span className="text-2xl font-bold text-slate-900">
-            {application.fitScore}%
-          </span>
-          <span
-            className={`rounded-full px-2.5 py-1 text-xs font-semibold ${getFitScoreClass(
+        <div
+          className={`flex flex-col items-end gap-0.5 rounded-2xl px-3.5 py-2 ${getFitScoreClass(
+            application.fitScore,
+          )}`}
+        >
+          <span className="text-2xl font-bold">{application.fitScore}%</span>
+          <span className="text-[11px] font-semibold uppercase tracking-wide opacity-80">
+            {getFitScoreLabelWithContext(
               application.fitScore,
-            )}`}
-          >
-            {getFitScoreLabel(application.fitScore)}
+              application.requiredSkills.length > 0,
+            )}
           </span>
         </div>
       </div>
@@ -114,19 +118,19 @@ export default function JobApplicationCard({
           title="Tespit Edilen"
           skills={application.requiredSkills}
           emptyText="Beceri tespit edilemedi."
-          badgeClass="bg-slate-100 text-slate-600"
+          badgeClass="bg-slate-50 text-slate-600 border border-slate-200"
         />
         <SkillBadgeGroup
           title="Eşleşen"
           skills={application.matchedSkills}
           emptyText="Eşleşen beceri yok."
-          badgeClass="bg-emerald-100 text-emerald-700"
+          badgeClass="bg-emerald-50 text-emerald-700 border border-emerald-100"
         />
         <SkillBadgeGroup
           title="Eksik"
           skills={application.missingSkills}
           emptyText="Eksik beceri yok."
-          badgeClass="bg-red-100 text-red-700"
+          badgeClass="bg-red-50 text-red-700 border border-red-100"
         />
       </div>
 

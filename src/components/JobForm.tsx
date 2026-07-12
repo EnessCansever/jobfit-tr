@@ -29,13 +29,13 @@ const EMPTY_FORM: JobFormData = {
 type FormErrors = Partial<Record<'company' | 'position' | 'description', string>>
 
 const inputBaseClass =
-  'w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:ring-2 focus:ring-slate-900/10'
+  'w-full rounded-xl border bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition-colors focus:ring-2'
 
 function getInputClass(hasError: boolean) {
   return `${inputBaseClass} ${
     hasError
-      ? 'border-red-400 focus:border-red-500'
-      : 'border-slate-200 focus:border-slate-400'
+      ? 'border-red-400 focus:border-red-500 focus:ring-red-500/10'
+      : 'border-slate-200 focus:border-slate-900 focus:ring-slate-900/10'
   }`
 }
 
@@ -83,8 +83,8 @@ export default function JobForm({ onSubmit }: JobFormProps) {
 
   return (
     <section className="mx-auto max-w-6xl px-6 pb-8">
-      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-        <div className="mb-6">
+      <div className="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm ring-1 ring-black/2 sm:p-8">
+        <div className="mb-5">
           <h2 className="text-lg font-semibold text-slate-900">
             İş İlanı Ekle
           </h2>
@@ -192,8 +192,10 @@ export default function JobForm({ onSubmit }: JobFormProps) {
                 className={getInputClass(false)}
               />
             </div>
+          </div>
 
-            <div className="sm:col-span-2">
+          <div className="mt-5 flex flex-col gap-5 rounded-2xl border border-slate-100 bg-slate-50/60 p-4 sm:p-5">
+            <div>
               <label
                 htmlFor="description"
                 className="mb-1.5 block text-sm font-medium text-slate-700"
@@ -215,7 +217,7 @@ export default function JobForm({ onSubmit }: JobFormProps) {
               )}
             </div>
 
-            <div className="sm:col-span-2">
+            <div>
               <label
                 htmlFor="notes"
                 className="mb-1.5 block text-sm font-medium text-slate-700"
@@ -236,7 +238,7 @@ export default function JobForm({ onSubmit }: JobFormProps) {
           <div className="mt-6 flex justify-end">
             <button
               type="submit"
-              className="rounded-xl bg-slate-900 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-800"
+              className="rounded-xl bg-linear-to-r from-slate-900 to-indigo-800 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-lg hover:shadow-indigo-900/20 active:opacity-90"
             >
               İlanı Kaydet
             </button>

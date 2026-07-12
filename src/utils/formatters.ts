@@ -5,6 +5,20 @@ export function getFitScoreLabel(score: number): string {
   return 'Düşük uyum'
 }
 
+// Same score buckets as getFitScoreLabel, but distinguishes "no skills
+// detected in the listing" from "skills detected but the user's profile
+// doesn't cover them" — the plain 0% case is misleading otherwise.
+export function getFitScoreLabelWithContext(
+  score: number,
+  hasRequiredSkills: boolean,
+): string {
+  if (!hasRequiredSkills) return 'Analiz edilemedi'
+  if (score === 0) return 'Profil eksik'
+  if (score >= 80) return 'Güçlü uyum'
+  if (score >= 50) return 'Orta uyum'
+  return 'Düşük uyum'
+}
+
 export function getFitScoreClass(score: number): string {
   if (score === 0) return 'bg-slate-100 text-slate-500'
   if (score >= 80) return 'bg-emerald-100 text-emerald-700'
