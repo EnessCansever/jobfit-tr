@@ -4,6 +4,7 @@ import Hero from './components/Hero'
 import SkillSelector from './components/SkillSelector'
 import JobForm from './components/JobForm'
 import AnalysisSummary from './components/AnalysisSummary'
+import SavedApplications from './components/SavedApplications'
 import DashboardSection from './components/DashboardSection'
 import type { JobApplication } from './types/job'
 import { analyzeJobFit } from './utils/analyzeJob'
@@ -47,6 +48,10 @@ function App() {
     setApplications((prev) => [...prev, newApplication])
   }
 
+  function handleDeleteApplication(id: string) {
+    setApplications((prev) => prev.filter((application) => application.id !== id))
+  }
+
   const lastApplication =
     applications.length > 0 ? applications[applications.length - 1] : null
 
@@ -63,6 +68,10 @@ function App() {
         <AnalysisSummary
           application={lastApplication}
           hasUserSkills={selectedSkills.length > 0}
+        />
+        <SavedApplications
+          applications={applications}
+          onDelete={handleDeleteApplication}
         />
         <DashboardSection />
       </main>
