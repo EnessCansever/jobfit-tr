@@ -82,7 +82,7 @@ function App() {
           onDelete={handleDeleteApplication}
           onStatusChange={handleStatusChange}
         />
-        <DashboardSection />
+        <DashboardSection applications={applications} />
       </main>
     </div>
   )
