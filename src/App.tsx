@@ -6,12 +6,14 @@ import JobForm from './components/JobForm'
 import AnalysisSummary from './components/AnalysisSummary'
 import SavedApplications from './components/SavedApplications'
 import DashboardSection from './components/DashboardSection'
+import type { ApplicationFilter } from './components/FilterTabs'
 import type { ApplicationStatus, JobApplication } from './types/job'
 import { analyzeJobFit } from './utils/analyzeJob'
 
 function App() {
   const [selectedSkills, setSelectedSkills] = useState<string[]>([])
   const [applications, setApplications] = useState<JobApplication[]>([])
+  const [activeFilter, setActiveFilter] = useState<ApplicationFilter>('All')
 
   function handleJobSubmit(formData: {
     company: string
@@ -63,6 +65,12 @@ function App() {
   const lastApplication =
     applications.length > 0 ? applications[applications.length - 1] : null
 
+  const filteredApplications = applications.filter((application) => {
+    if (activeFilter === 'All') return true
+    if (activeFilter === 'HighFit') return application.fitScore >= 70
+    return application.status === activeFilter
+  })
+
   return (
     <div className="min-h-screen bg-slate-50">
       <Header />
@@ -78,9 +86,12 @@ function App() {
           hasUserSkills={selectedSkills.length > 0}
         />
         <SavedApplications
-          applications={applications}
+          applications={filteredApplications}
+          totalApplications={applications.length}
           onDelete={handleDeleteApplication}
           onStatusChange={handleStatusChange}
+          activeFilter={activeFilter}
+          onFilterChange={setActiveFilter}
         />
         <DashboardSection applications={applications} />
       </main>
