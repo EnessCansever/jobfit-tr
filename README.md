@@ -2,6 +2,8 @@
 
 Junior geliştiriciler için iş ilanı uygunluk analizi ve başvuru takip paneli.
 
+Canlı Demo: [https://jobfit-tr.vercel.app](https://jobfit-tr.vercel.app)
+
 ## Proje Özeti
 
 JobFit TR, junior geliştiricilerin iş ilanlarını kendi teknik becerileriyle karşılaştırmasını, uygunluk skorunu görmesini ve başvuru süreçlerini tek yerden takip etmesini sağlayan local-first bir web uygulamasıdır.
@@ -67,7 +69,21 @@ Tüm veriler tarayıcının LocalStorage'ında saklanır; herhangi bir backend v
 
 ## Ekran Görüntüleri
 
-> Ekran görüntüleri eklenecek.
+### Dashboard
+
+![JobFit TR Dashboard](public/screenshots/dashboard.png)
+
+### İş İlanı Ekleme Formu
+
+![JobFit TR İş İlanı Ekleme Formu](public/screenshots/job-form.png)
+
+### Son Analiz Özeti
+
+![JobFit TR Son Analiz Özeti](public/screenshots/analysis-summary.png)
+
+### Kaydedilen İlanlar
+
+![JobFit TR Kaydedilen İlanlar](public/screenshots/saved-applications.png)
 
 ## Kurulum
 
