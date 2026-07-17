@@ -140,6 +140,6 @@ GitHub: [https://github.com/EnessCansever](https://github.com/EnessCansever)
 
 LinkedIn: [https://www.linkedin.com/in/enes-cansever-478766244/](https://www.linkedin.com/in/enes-cansever-478766244/)
 
-## Lisans
+## Not
 
 Bu proje portföy ve eğitim amaçlı geliştirilmiştir.
